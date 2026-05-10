@@ -22,26 +22,62 @@ const C = {
 };
 
 const AIRPORTS = {
-  GRU:{ city:"São Paulo",    full:"Guarulhos International" },
-  CGH:{ city:"São Paulo",    full:"Congonhas" },
-  GIG:{ city:"Rio de Janeiro", full:"Galeão International" },
-  SDU:{ city:"Rio de Janeiro", full:"Santos Dumont" },
-  BSB:{ city:"Brasília",     full:"Presidente JK" },
-  SSA:{ city:"Salvador",     full:"Dep. Luís Eduardo Magalhães" },
-  FOR:{ city:"Fortaleza",    full:"Pinto Martins" },
-  REC:{ city:"Recife",       full:"Guararapes–Gilberto Freyre" },
-  MIA:{ city:"Miami",        full:"Miami International" },
-  JFK:{ city:"Nova York",    full:"John F. Kennedy" },
-  LHR:{ city:"Londres",      full:"Heathrow" },
-  CDG:{ city:"Paris",        full:"Charles de Gaulle" },
-  MAD:{ city:"Madri",        full:"Adolfo Suárez Barajas" },
-  LIS:{ city:"Lisboa",       full:"Humberto Delgado" },
-  FCO:{ city:"Roma",         full:"Leonardo da Vinci" },
-  EZE:{ city:"Buenos Aires", full:"Ministro Pistarini" },
-  SCL:{ city:"Santiago",     full:"Arturo Merino Benítez" },
-  CUN:{ city:"Cancún",       full:"Cancún International" },
-  DXB:{ city:"Dubai",        full:"Dubai International" },
-  NRT:{ city:"Tóquio",       full:"Narita International" },
+  // Brasil
+  GRU:{ city:"São Paulo",       full:"Guarulhos International" },
+  CGH:{ city:"São Paulo",       full:"Congonhas" },
+  VCP:{ city:"Campinas",        full:"Viracopos International" },
+  GIG:{ city:"Rio de Janeiro",  full:"Galeão International" },
+  SDU:{ city:"Rio de Janeiro",  full:"Santos Dumont" },
+  BSB:{ city:"Brasília",        full:"Presidente JK" },
+  SSA:{ city:"Salvador",        full:"Luís Eduardo Magalhães" },
+  FOR:{ city:"Fortaleza",       full:"Pinto Martins" },
+  REC:{ city:"Recife",          full:"Guararapes–Gilberto Freyre" },
+  POA:{ city:"Porto Alegre",    full:"Salgado Filho" },
+  CWB:{ city:"Curitiba",        full:"Afonso Pena" },
+  BEL:{ city:"Belém",           full:"Val de Cans" },
+  MAO:{ city:"Manaus",          full:"Eduardo Gomes" },
+  NAT:{ city:"Natal",           full:"Gov. Aluízio Alves" },
+  MCZ:{ city:"Maceió",          full:"Zumbi dos Palmares" },
+  GYN:{ city:"Goiânia",         full:"Santa Genoveva" },
+  VIX:{ city:"Vitória",         full:"Eurico de Aguiar Salles" },
+  FLN:{ city:"Florianópolis",   full:"Hercílio Luz" },
+  // América do Norte
+  MIA:{ city:"Miami",           full:"Miami International" },
+  JFK:{ city:"Nova York",       full:"John F. Kennedy" },
+  EWR:{ city:"Nova York",       full:"Newark Liberty" },
+  LAX:{ city:"Los Angeles",     full:"Los Angeles International" },
+  ORD:{ city:"Chicago",         full:"O Hare International" },
+  MCO:{ city:"Orlando",         full:"Orlando International" },
+  YYZ:{ city:"Toronto",         full:"Pearson International" },
+  MEX:{ city:"Cidade do México", full:"Benito Juárez" },
+  // Europa
+  LHR:{ city:"Londres",         full:"Heathrow" },
+  LGW:{ city:"Londres",         full:"Gatwick" },
+  CDG:{ city:"Paris",           full:"Charles de Gaulle" },
+  MAD:{ city:"Madri",           full:"Adolfo Suárez Barajas" },
+  LIS:{ city:"Lisboa",          full:"Humberto Delgado" },
+  FCO:{ city:"Roma",            full:"Leonardo da Vinci" },
+  MXP:{ city:"Milão",           full:"Malpensa" },
+  BCN:{ city:"Barcelona",       full:"El Prat" },
+  AMS:{ city:"Amsterdã",        full:"Schiphol" },
+  FRA:{ city:"Frankfurt",       full:"Frankfurt Airport" },
+  ZRH:{ city:"Zurique",         full:"Zurich Airport" },
+  // América do Sul
+  EZE:{ city:"Buenos Aires",    full:"Ministro Pistarini" },
+  SCL:{ city:"Santiago",        full:"Arturo Merino Benítez" },
+  BOG:{ city:"Bogotá",          full:"El Dorado" },
+  LIM:{ city:"Lima",            full:"Jorge Chávez" },
+  MVD:{ city:"Montevidéu",      full:"Carrasco International" },
+  // Caribe
+  CUN:{ city:"Cancún",          full:"Cancún International" },
+  PUJ:{ city:"Punta Cana",      full:"Punta Cana International" },
+  // Oriente Médio e Ásia
+  DXB:{ city:"Dubai",           full:"Dubai International" },
+  DOH:{ city:"Doha",            full:"Hamad International" },
+  NRT:{ city:"Tóquio",          full:"Narita International" },
+  SIN:{ city:"Singapura",       full:"Changi Airport" },
+  // África
+  JNB:{ city:"Joanesburgo",     full:"O.R. Tambo International" },
 };
 
 const RESULTS = [
@@ -616,7 +652,10 @@ export default function VooMax() {
       clearInterval(iv);
 
       if (!res.ok || !data.results?.length) {
-        setSearchError(data.error || "Nenhum resultado encontrado para esta rota e data.");
+        setSearchError(
+          "Nenhum resultado encontrado para esta rota e data. " +
+          "Tente uma rota internacional (ex: GRU → MIA, GRU → LIS) ou uma data futura com mais disponibilidade."
+        );
         setView("results");
         return;
       }
